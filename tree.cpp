@@ -1,8 +1,7 @@
 #include <iostream>
 
-class Node
+struct Node
 {
-    public:
         Node(double value):
         left(nullptr),
         right(nullptr),
@@ -22,33 +21,60 @@ class Node
 
 class BinaryTree
 {
-    public:
-        BinaryTree():
-        lastNode(nullptr){};
+  public:
+        BinaryTree(double Value):
+        originalRoot(nullptr){
+          originalRoot = InternalAdd(originalRoot, Value);
+        };
 
         void Add(double Value){
-            if(lastNode==nullptr){
-                lastNode = new Node(Value);
-            }else if(lastNode->left == nullptr){
-                lastNode->left = new Node(Value);
-            }else if(lastNode->right == nullptr){
-                lastNode->right = new Node(Value);
+          InternalAdd(originalRoot, Value);
+        }
+
+        void Search(double Value){
+          InternalSearch(originalRoot, Value);
+        }
+
+      private:
+        bool InternalSearch(Node* root, double Value){
+            if(root->nodeValue == Value){
+                std::cout<<"found! at node "<< root<<"\n";
+                return true;
+            }else if(root->nodeValue < Value){
+                return InternalSearch(root->left, Value);
+            }else if(root->nodeValue > Value){
+                return InternalSearch(root->right, Value);
+            }else{
+              std::cout<<"Not found"<<"\n";
+              return false;
             }
         }
-        Node *lastNode;
+
+        Node* InternalAdd(Node* root, double Value){
+            //we found a leaf
+            if(root==nullptr){
+                root = new Node(Value);
+            }else if(root->nodeValue < Value){
+                root->left = InternalAdd(root->left, Value);
+            }else if(root->nodeValue > Value){
+                root->right = InternalAdd(root->right, Value);
+            }
+            return root;
+        }
+
+        Node *originalRoot;
 
 };
 
 int main(){
-    Node *root = new Node(19.1);
-    Node *left = new Node(10.1);
-    Node *right = new Node(20.3);
-    root->left = left;
-    root->right = right;
-    std::cout<<root<<"\n";
+    BinaryTree tree(19.1);
 
-    delete root;
-    delete left;
-    delete right;
+    tree.Add(10);
+    tree.Add(1.0);
+    tree.Add(42);
+    tree.Add(12.9);
+    tree.Add(89.999);
+    tree.Add(32.0);
 
+    tree.Search(42);
 }
