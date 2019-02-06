@@ -12,8 +12,17 @@ struct Node
                 //std::cout<<"node value: "<<nodeValue<<"\n";
         };
         friend std::ostream& operator << (std::ostream& os, Node* node){
-                os<<"("<<node->nodeValue<<"("<<node->left->nodeValue<<"("<<node->right->nodeValue<<"))";
+                if(node->left == nullptr && node->right == nullptr) {
+                        os<<"("<<node->nodeValue<<"("<<"..."<<"("<<"..."<<"))";
+                }else if (node->left == nullptr) {
+                        os<<"("<<node->nodeValue<<"("<<"..."<<"("<<node->right->nodeValue<<"))";
+                }else if (node->right == nullptr) {
+                        os<<"("<<node->nodeValue<<"("<<node->left->nodeValue<<"("<<"..."<<"))";
+                }else{
+                      os<<"("<<node->nodeValue<<"("<<node->left->nodeValue<<"("<<node->right->nodeValue<<"))";
+                }
                 return os;
+
         };
 
         Node *left;
@@ -53,7 +62,7 @@ bool InternalSearch(Node* root, double Value){
         return false;
 }
 
-Node* InternalAdd(Node* root, double Value){
+Node* InternalAdd(Node*& root, double Value){
         //we found a leaf
         if(root==nullptr) {
                 root = new Node(Value);
@@ -70,10 +79,16 @@ Node *originalRoot;
 };
 
 int main(){
-        std::vector<double> v = {1,4,32.01,123.3,45.5,12,34,342.01,13.3,455.5,-12};
+        std::vector<double> v = {1,42,32.01,123.3,45.5,12,34,342.01,13.3,455.5,-12,8};
         BinaryTree tree(19.1);
 
-        for()
+        for(std::vector<double>::iterator it=v.begin(); it<v.end(); it++) {
+                tree.Add(*it);
+        }
         tree.Search(42);
         tree.Search(8);
+        tree.Search(19.1);
+        tree.Search(12);
+        tree.Search(1);
+
 }
