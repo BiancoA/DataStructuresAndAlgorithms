@@ -25,7 +25,7 @@ struct Node
 
         };
         ~Node(){
-          std::cout<<"deleted\n";
+          std::cout<<"deleted "<<nodeValue<<"\n";
         }
 
         Node *left;
@@ -83,25 +83,25 @@ Node* InternalAdd(Node*& root, double Value){
         return root;
 }
 
-void InternalRemove(Node*& node, double Value){
+Node* InternalRemove(Node*& node, double Value){
+      if(node == nullptr){std::cout<<"we have a problem\n";}
       if(node->nodeValue < Value){
-          InternalRemove(node->left, Value);
+          node->left = InternalRemove(node->left, Value);
       }else if(node->nodeValue > Value){
-          InternalRemove(node->right, Value);
+          node->right = InternalRemove(node->right, Value);
       }else{
           if(node->left==nullptr && node->right==nullptr){
             //leaf
-            delete node;
+            node = nullptr;
           }else if(node->left==nullptr){
-            node = node->right;
-            delete node->right;
+            node->nodeValue = node->right->nodeValue;
+            node->right = nullptr;
           }else if(node->right==nullptr){
-            node = node->left;
-            delete node->left;
+            node->nodeValue = node->left->nodeValue;
+            node->left = nullptr;
           }else{
             //both right and left are present
             Node* leftmost = FindMin(node->right);
-            std::cout<<leftmost;
             node->nodeValue = leftmost->nodeValue;
             if(leftmost->right == nullptr){
               delete leftmost;
@@ -109,11 +109,9 @@ void InternalRemove(Node*& node, double Value){
               leftmost->nodeValue = leftmost->right->nodeValue;
               delete leftmost->right;
             }
-
           }
-
       }
-
+      return node;
 }
 Node* FindMin(Node*& node){
   if(node->left ==nullptr){
@@ -139,14 +137,21 @@ int main(){
         tree.Search(19.1);
         tree.Search(12);
         tree.Search(1);
-
+        std::cout<<"42\n";
         tree.Remove(42);
         tree.Search(42);
-
-        tree.Remove(8);
-        tree.Search(8);
-
+        std::cout<<"34\n";
+        tree.Search(34);
+        std::cout<<"1\n";
         tree.Remove(1);
         tree.Search(1);
+        std::cout<<"8\n";
+        tree.Remove(8);
+        tree.Search(8);
+        std::cout<<"32.01\n";
+        tree.Remove(32.01);
+        tree.Search(32.01);
+
+        std::cout<<"end\n";
 
 }
