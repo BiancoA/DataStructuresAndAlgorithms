@@ -113,6 +113,7 @@ Node* InternalRemove(Node*& node, double Value){
       }
       return node;
 }
+
 Node* FindMin(Node*& node){
   if(node->left ==nullptr){
     return node;
