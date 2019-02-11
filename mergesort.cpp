@@ -18,8 +18,9 @@ void merge(T& v, int lo, int mid, int hi){
     int j = mid+1;
     int k = lo;
 
+
     while(i<mid+1 && j<hi+1){
-        if(v[i]<v[j]){
+        if(v[i]<=v[j]){
             a[k]=v[i];
             i++;
         }else{
@@ -39,9 +40,13 @@ void merge(T& v, int lo, int mid, int hi){
             k++;
         }
     }
+    // std::cout<<"v before: \n";
+    // print(v);
     for(int c=lo; c<hi+1; c++){  
         v[c]=a[c];
     }
+    // std::cout<<"v after: \n";
+    // print(v);
 
 }
 
@@ -53,14 +58,14 @@ void merge(T& v, int lo, int mid, int hi){
 template <class T>
 void mergeSort(T& v, int lo, int hi){
     if(lo < hi){
-        int mid = (hi-lo)/2;
+        int mid = (hi+lo)/2;
         mergeSort(v, lo, mid);
         mergeSort(v, mid+1, hi);
         merge(v, lo, mid, hi);
     }
 }
 int main(){
-    std::vector<int> v ={3,2,5,8,10};
+    std::vector<int> v ={3,2,-1,8,5};
     print(v);
     mergeSort(v,0,v.size()-1);
     print(v);
