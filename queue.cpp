@@ -13,12 +13,12 @@ class tQueue{
     tQueue(T fValue): first(new tNode(fValue)), last(nullptr);
 
     void Add(T Value){
-        last.release();
+        Node* tmpLast = last.release();
         last.reset(new tNode(Value));
-        last->
+        last->prev.reset(tmpLast);
     }
     T Get(){
-        T tmp = first->value;
+        T tmpFirst = first->value;
         first->swap(first->;
 
 
