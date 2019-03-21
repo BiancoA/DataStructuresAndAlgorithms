@@ -5,15 +5,16 @@
 #include <iterator>
 
 void partition_list(std::list<int>& list, int value){
-  auto endIt = list.end();
-  for(auto it = list.begin(); it!= endIt; it++){
+  auto it = list.begin();
+  int listInitialSize = list.size();
+  for(auto i = 0; i< listInitialSize; i++){
     std::cout<<*it<<" ";
       if(*it<value){
         list.push_front(*it);
-        list.erase(it);
+        it=list.erase(it);
       }else{
         list.push_back(*it);
-        list.erase(it);
+        it=list.erase(it);
       }
   }
 }
@@ -23,8 +24,24 @@ int main(){
   for(auto& l: list){
     std::cout<<l<<"\n";
   }
+  std::cout<<"\n";
 
   partition_list(list,8);
+  std::cout<<"\n";
+
+  for(auto& l: list){
+    std::cout<<l<<"\n";
+  }
+
+  partition_list(list,6);
+  std::cout<<"\n";
+
+  for(auto& l: list){
+    std::cout<<l<<"\n";
+  }
+  partition_list(list,0);
+  std::cout<<"\n";
+
   for(auto& l: list){
     std::cout<<l<<"\n";
   }
