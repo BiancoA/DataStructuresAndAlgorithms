@@ -4,7 +4,6 @@
 template<typename T>
 size_t binary_search(const std::vector<T> &v, T item, size_t first, size_t last){
   size_t middle = (first+last)/2;
-  //std::cout<<middle<<"\n";
   if(v.at(middle)==item){
     return middle;
   }else if(v.at(middle)>item){
@@ -36,8 +35,4 @@ int main(){
     std::cout<< binary_search(v,v.at(i),0, v.size()-1)<<"\n";
     std::cout<< binary_iterative(v,v.at(i),0, v.size()-1)<<"\n";
   }
-
-
-
-
 }
