@@ -1,7 +1,7 @@
 #include <iostream>
 #include <exception>
 
-// compiled with g++ --std=c++11 main.cpp -o a.out
+// compiled with g++ --std=c++11 CalculatorTree.cpp -o a.out
 // this version is stil prototypal, it lacks a lot of features: smart pointers,
 // better tought constructors, logic to handle the return value if the operation
 // is between two different types, and I guess many other things.
@@ -79,21 +79,21 @@ template <typename T, typename K>
    /* building first tree:
         *
       /   \
-     2     +
+     5     +
           /  \
-        3     4
+        2     7
 
   */
 
    OperatorNode<int, int>* firstLevel = new OperatorNode<int, int>('+',
-                                              new NumberNode<int>(3),
-                                              new NumberNode<int>(4));
-   OperatorNode<int, int>* tree = new OperatorNode<int, int>('*',
                                               new NumberNode<int>(2),
+                                              new NumberNode<int>(7));
+   OperatorNode<int, int>* tree = new OperatorNode<int, int>('*',
+                                              new NumberNode<int>(5),
                                         firstLevel);
 
    int tmpFirstTreeValue = tree->value();
-   if(tmpFirstTreeValue == 14){
+   if(tmpFirstTreeValue == 45){
         std::cout<<"the value of the first three is correct: "<<
                     tmpFirstTreeValue<<"\n";
     }else{
@@ -104,22 +104,22 @@ template <typename T, typename K>
    /* building second tree:
         *
       /   \
-  13,75    +
+  2,5      +
           /  \
-        22   15
+        10   31
 
   */
 
-   OperatorNode<int, int>* firstLevel2 = new OperatorNode<int, int>('*',
-                                              new NumberNode<int>(22),
-                                              new NumberNode<int>(15));
-   OperatorNode<double, int>* tree2 = new OperatorNode<double, int>('+',
-                                        new NumberNode<double>(13.75),
+   OperatorNode<int, int>* firstLevel2 = new OperatorNode<int, int>('+',
+                                              new NumberNode<int>(31),
+                                              new NumberNode<int>(10));
+   OperatorNode<double, int>* tree2 = new OperatorNode<double, int>('*',
+                                        new NumberNode<double>(2.5),
                                       firstLevel2);
 
 
     double tmpSecondTreeValue = tree2->value();
-    if(tmpSecondTreeValue == 343.75){
+    if(tmpSecondTreeValue == 102.5){
             std::cout<<"the value of the first three is correct: "<<
                         tmpSecondTreeValue<<"\n";
     }else{
